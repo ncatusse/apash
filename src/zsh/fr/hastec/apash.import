@@ -8,13 +8,16 @@ apash.import(){
   [ "$1" = "-f" ] && forceFlag=true && shift
 
   for l in "$@"; do
-    location="$APASH_BASH_DIR/${l//./\/}"
-    # Import package
+    location="$APASH_BASH_DIR"/${l//./\/}
     if [ -d "$location" ]; then
       location="$location/*.sh"
-      for lib in $location; do
+      for lib in $location/*.sh; do
+        echo $lib
         libs+=("$lib")
       done
+      #for lib in $location; do
+      #  libs+=("$lib")
+      #done
     
     # Import a single class or method
     elif [ -r "$location.sh" ]; then
